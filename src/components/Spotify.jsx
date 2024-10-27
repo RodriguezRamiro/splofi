@@ -10,7 +10,6 @@ function Spotify() {
     return (
       <div className="spotify-container">
         <Sidebar />
-        <div className="spotify-header">Spotify</div>
         <div className="spotify-body">
         <Navbar />
           <div className="spotify-body-content">
