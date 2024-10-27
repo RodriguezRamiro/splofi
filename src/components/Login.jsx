@@ -11,7 +11,7 @@ export default function Login() {
   }, [token]);
 
   const handleClick = () => {
-    const clientId = "f62391d57f434710998fae531bff1204";
+    const clientId = "305e0c3ef9ef48dc8504556c83d114ca";
     const redirectUrl = "http://localhost:3000/";
     const apiUrl = "https://accounts.spotify.com/authorize";
     const scope = [
