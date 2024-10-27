@@ -1,0 +1,10 @@
+/* Footer.css */
+.footer-container {
+    background-color: #181818; /* Dark background */
+    color: rgb(246, 4, 4);              /* Text color */
+    text-align: center;        /* Center align text */
+    padding: 20px;             /* Space around content */
+    position: relative;        /* Positioning */
+    bottom: 0;                 /* Stick to the bottom */
+    width: 100%;               /* Full width */
+}

@@ -30,13 +30,14 @@ export default function Login() {
   };
 
   return (
-    <div className="container">
-      {token ? <p>Logged in with token: {token}</p> : <p>Please log in</p>}
+    <div className="login-container">
+      {token ? <p className="login-message">Logged in with token: {token}</p> : <p className="login-message">Please log in</p>}
       <img
+        className="login-logo"
         src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Black.png"
         alt="spotify"
       />
-      <button onClick={handleClick}>Login with Spotify</button>
+      <button className="login-button" onClick={handleClick}>Login with Spotify</button>
     </div>
   );
 }

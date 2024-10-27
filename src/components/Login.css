@@ -1,4 +1,5 @@
-.container {
+/* Login.css */
+.login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,19 +7,37 @@
     height: 100vh;
     width: 100vw;
     background-color: #1db954;
-    gap: 5rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    gap: 2rem;
 }
 
-.container img {
-    height: 10vh;
+.login-logo {
+    max-height: 15vh;
+    width: auto;
+    object-fit: contain;
 }
 
-.container button {
-    padding: 1rem 5rem;
-    border-radius: 5rem;
+.login-button {
+    padding: 20px;
+    border-radius: 50px;
     border: none;
     background-color: black;
     color: #49f585;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover effect for the button */
+.login-button:hover {
+    background-color: #49f585;
+    color: black;
+}
+
+.login-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: rgb(0, 0, 0);
 }
