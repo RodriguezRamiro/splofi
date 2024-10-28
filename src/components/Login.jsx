@@ -7,7 +7,6 @@ export default function Login() {
 
   // Debug: Log state to confirm if the context is working
   useEffect(() => {
-    console.log("Token:", token);
   }, [token]);
 
   const handleClick = () => {

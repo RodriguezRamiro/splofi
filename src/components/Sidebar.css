@@ -1,14 +1,22 @@
 /* Sidebar.css */
 .sidebar-container {
     background-color: #181818; /* Sidebar background color */
+    display: flex;
     height: 100%; /* Full height */
     width: 250px; /* Fixed width */
     padding: 20px; /* Padding inside the sidebar */
-    color: white; /* Text color */
+    color: #b3b3b3; /* Text color */
+    flex-direction: column;
 }
 
 .logo {
-    margin-bottom: 20px; /* Space below the logo */
+    text-align: center;
+    margin: 1rem; /* Space below the logo */
+}
+
+.logo img {
+    max-inline-size: 80%;
+    block-size: auto; /* Note: Use 'height' or 'width' instead for better control */
 }
 
 .top-links {
@@ -17,8 +25,10 @@
 }
 
 .top-links ul {
-    list-style: none; /* Remove bullet points */
-    padding: 0; /* Remove padding */
+    flex-direction: column;
+    list-style-type: none; /* Remove bullet points */
+    padding: 1rem; /* Remove padding */
+    gap: 1rem; /* Space between items */
 }
 
 .top-links li {
@@ -26,6 +36,12 @@
     align-items: center; /* Center items vertically */
     margin: 10px 0; /* Space between items */
     cursor: pointer; /* Change cursor on hover */
+    gap: 1rem;
+    transition: 0.3s ease-in-out; /* Smooth transition */
+}
+
+.top-links li:hover {
+    color: white; /* Change color on hover */
 }
 
 .top-links li span {
