@@ -1,6 +1,6 @@
 // Sidebar.jsx
 import React from 'react';
-import './Sidebar.css';
+import "./Styles.css";
 import { IoLibrary } from 'react-icons/io5';
 import { MdHomeFilled, MdSearch } from 'react-icons/md';
 import Playlists from './Playlists';

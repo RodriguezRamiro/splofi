@@ -1,6 +1,6 @@
 // Spotify.jsx
 import React, { useEffect } from "react";
-import "./Spotify.css";
+import "./Styles.css";
 import Body from "./Body";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";

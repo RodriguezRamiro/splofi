@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useStateProvider } from '../utils/StateProvider';
 import axios from 'axios';
 import { reducerCases } from '../utils/Constants';
-import './Playlists.css';
+import "./Styles.css";
 
 export default function Playlists() {
     const [{ token, playlists }, dispatch] = useStateProvider();
@@ -22,7 +22,7 @@ export default function Playlists() {
                     return {
                         name,
                         id,
-                        imageUrl: images.length > 0 ? images[0].url : '' 
+                        imageUrl: images.length > 0 ? images[0].url : ''
                     };
                 });
 

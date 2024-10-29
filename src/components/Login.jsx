@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useStateProvider } from "../utils/StateProvider";
-import './Login.css'; // Make sure to import your CSS file
+import "./Styles.css";
 
 export default function Login() {
   const [{ token }, dispatch] = useStateProvider();
