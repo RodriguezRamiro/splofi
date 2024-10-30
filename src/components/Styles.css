@@ -26,7 +26,6 @@
     height: 100%;
     width: 100%;
     overflow: auto;
-    flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -138,12 +137,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem;
-    height: 15vh;
+    padding: 1.5rem 2rem;
+    height: 10vh;
+    width: 575%;
     position: sticky;
     top: 0;
     transition: 0.3s ease-in-out;
-    background-color: transparent;
+
+
   }
 
   .search-bar {
@@ -174,6 +175,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    margin-left: auto;
   }
 
   .avatar a {
@@ -245,11 +249,96 @@
 
 /* Footer.css */
 .footer-container {
-    background-color: #181818; /* Dark background */
-    color: rgb(246, 4, 4);              /* Text color */
-    text-align: center;        /* Center align text */
-    padding: 20px;             /* Space around content */
-    position: relative;        /* Positioning */
-    bottom: 0;                 /* Stick to the bottom */
-    width: 100%;               /* Full width */
+    background-color: #181818;
+    color: rgb(246, 4, 4);
+    text-align: center;
+    height: 10vh;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
 }
+
+
+/*######################################################*/
+
+
+/* Body.css */
+
+.playlist {
+    margin: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .playlist .image img {
+    height: 15rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  }
+
+  .playlist .details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #e0dede;
+  }
+
+  .playlist .details .title {
+    color: white;
+    font-size: 4rem;
+  }
+
+  .list .header-row {
+    display: grid;
+    grid-template-columns: 0.3fr 3fr 2fr 0.1fr;
+    color: #dddcdc;
+    margin-top: 1rem;
+    position: sticky;
+    top: 15vh;
+    padding: 1rem 3rem;
+    transition: 0.3s ease-in-out;
+    background-color: var(--header-background, transparent);
+  }
+
+  .tracks {
+    margin: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5rem;
+  }
+
+  .tracks .row {
+    padding: 0.5rem 1rem;
+    display: grid;
+    grid-template-columns: 0.3fr 3.1fr 1.9fr 0.1fr;
+  }
+
+  .tracks .row:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .tracks .col {
+    display: flex;
+    align-items: center;
+    color: #dddcdc;
+  }
+
+  .tracks .col img {
+    height: 40px;
+  }
+
+  .tracks .detail {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .tracks .detail .info {
+    display: flex;
+    flex-direction: column;
+  }
+

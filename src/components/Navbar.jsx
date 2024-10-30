@@ -5,11 +5,11 @@ import { CgProfile } from "react-icons/cg";
 import { useStateProvider } from '../utils/StateProvider';
 import "./Styles.css";
 
-export default function Navbar() {
+export default function Navbar({navBackground}) {
   const [{ userInfo }] = useStateProvider();
 
   return (
-    <div className="navbar-container">
+    <div navBackground={navBackground} className="navbar-container">
       <div className="search-bar">
         <FaSearch />
         <input type="text" placeholder="Artists, songs, or podcasts" />
