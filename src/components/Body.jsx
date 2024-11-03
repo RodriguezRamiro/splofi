@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AiFillClockCircle } from 'react-icons/ai';
 import { useStateProvider } from '../utils/StateProvider';
 import axios from 'axios';
 import { reducerCases } from '../utils/Constants';
-import "./Styles.css"; // Import external stylesheet
+import "./Styles.css";
 
 export default function Body({ headerBackground }) {
   const [{ token, selectedPlaylistId, selectedPlaylist }, dispatch] = useStateProvider();
+  const [scrolled, setScrolled] = useState(false);
+  const listRef = useRef(null); // Ref for the list container
+
   useEffect(() => {
-    console.log("SelectedPlaylist:", selectedPlaylist);
     const getInitialPlaylist = async () => {
       try {
         const response = await axios.get(
@@ -20,7 +22,6 @@ export default function Body({ headerBackground }) {
             },
           }
         );
-        console.log("Playlist Response:", response.data);
 
         const playlistData = response.data;
         const selectedPlaylist = {
@@ -39,7 +40,6 @@ export default function Body({ headerBackground }) {
             track_number: track.track_number,
           })),
         };
-        console.log(selectedPlaylist);
         dispatch({ type: reducerCases.SET_PLAYLIST, selectedPlaylist });
       } catch (error) {
         console.error("Error fetching playlist:", error);
@@ -49,6 +49,30 @@ export default function Body({ headerBackground }) {
     getInitialPlaylist();
   }, [token, dispatch, selectedPlaylistId]);
 
+  // Scroll effect on the list element
+  useEffect(() => {
+    const listElement = listRef.current;
+
+    const handleScroll = () => {
+      if (listElement.scrollTop > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    if (listElement) {
+      handleScroll(); // Call handleScroll to set initial state
+    listElement.addEventListener('scroll', handleScroll);
+  }
+
+    return () => {
+      if (listElement) {
+        listElement.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [listRef]);
+
   const msToMinutesAndSeconds = (ms) => {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
@@ -56,42 +80,34 @@ export default function Body({ headerBackground }) {
   };
 
   return (
-    <div
-      className="navbar-container"
-      style={{ '--nav-background': headerBackground ? '#000000dc' : 'transparent' }}
-    >
+    <div className="body-container">
       {selectedPlaylist && (
         <>
-         <div className="playlist-wrapper">
-            <div className="playlist">
-              <div className="image">
-                <img src={selectedPlaylist.image} alt="selected playlist" />
-              </div>
-              <div className="details">
-                <span className="type">PLAYLIST</span>
-                <h1 className="title">{selectedPlaylist.name}</h1>
-                <p className="description">{selectedPlaylist.description}</p>
-              </div>
+          <div className="playlist">
+            <div className="image">
+              <img src={selectedPlaylist.image} alt="Selected Playlist" />
+            </div>
+            <div className="details">
+              <span className="type">PLAYLIST</span>
+              <h1 className="title">{selectedPlaylist.name}</h1>
+              <p className="description">{selectedPlaylist.description}</p>
             </div>
           </div>
-          <div className="list">
-            <div className="header-row">
-              <div className="col">
-                <span>TTILE</span>
-              </div>
-              <div className="col">
-                <span>ALBUM</span>
-              </div>
-              <div className="col">
-                <AiFillClockCircle />
-              </div>
+          <div className="list" ref={listRef}>
+            <div
+              className={`header-row ${scrolled ? "scrolled" : ""}`}
+              style={{
+                backgroundColor: scrolled ? "#000000dc" : "transparent",
+              }}
+            >
+              <div className="col"><span>Title</span></div>
+              <div className="col"><span>Album</span></div>
+              <div className="col"><span><AiFillClockCircle /></span></div>
             </div>
             <div className="tracks">
               {selectedPlaylist.tracks.map((track, index) => (
                 <div className="row" key={track.id}>
-                  <div className="col">
-                    <span>{index + 1}</span>
-                  </div>
+                  <div className="col"><span>{index + 1}</span></div>
                   <div className="col detail">
                     <div className="image">
                       <img src={track.image} alt={track.name} />
@@ -101,12 +117,8 @@ export default function Body({ headerBackground }) {
                       <span>{track.artists}</span>
                     </div>
                   </div>
-                  <div className="col">
-                    <span>{track.album}</span>
-                  </div>
-                  <div className="col">
-                    <span>{msToMinutesAndSeconds(track.duration)}</span>
-                  </div>
+                  <div className="col"><span>{track.album}</span></div>
+                  <div className="col"><span>{msToMinutesAndSeconds(track.duration)}</span></div>
                 </div>
               ))}
             </div>
