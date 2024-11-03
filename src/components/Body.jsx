@@ -54,24 +54,23 @@ export default function Body({ headerBackground }) {
     const listElement = listRef.current;
 
     const handleScroll = () => {
-      if (listElement.scrollTop > 0) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      console.log("scrollTop:", listElement.scrollTop);
+      setScrolled(listElement.scrollTop > 0);
     };
 
     if (listElement) {
-      handleScroll(); // Call handleScroll to set initial state
-    listElement.addEventListener('scroll', handleScroll);
-  }
+      // Initial state check
+      handleScroll();
+      listElement.addEventListener('scroll', handleScroll);
+    }
 
+    // Cleanup on unmount
     return () => {
       if (listElement) {
         listElement.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [listRef]);
+  }, [listRef]); // listRef dependency is not strictly necessary here
 
   const msToMinutesAndSeconds = (ms) => {
     const minutes = Math.floor(ms / 60000);
@@ -104,7 +103,7 @@ export default function Body({ headerBackground }) {
               <div className="col"><span>Album</span></div>
               <div className="col"><span><AiFillClockCircle /></span></div>
             </div>
-            <div className="tracks">
+            <div className="tracks" ref={listRef}>
               {selectedPlaylist.tracks.map((track, index) => (
                 <div className="row" key={track.id}>
                   <div className="col"><span>{index + 1}</span></div>
