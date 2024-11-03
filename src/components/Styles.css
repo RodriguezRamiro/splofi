@@ -29,6 +29,14 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    padding-top: 30vh;
+
+
+}
+.playlist-wrapper {
+    padding-left: -6rem;
+
+
 }
 
 /* Customize scrollbar */
@@ -270,7 +278,8 @@
 /* Body.css */
 
 .playlist {
-    margin: 0 2rem;
+    margin-left: -2rem;
+    padding-top: 3rem;
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -293,17 +302,28 @@
     font-size: 4rem;
   }
 
-  .list .header-row {
+  .list {
+    max-height: 80vh; /* Set a maximum height for the list */
+    overflow-y: auto; /* Allow vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 1rem; /* Optional: add some padding around the list */
+    margin: 0 auto; /* Center the list horizontally */
+    width: 990%; /* Adjust the width as needed */
+}
+
+.list .header-row {
     display: grid;
     grid-template-columns: 0.3fr 3fr 2fr 0.1fr;
     color: #dddcdc;
-    margin-top: 1rem;
-    position: sticky;
-    top: 15vh;
-    padding: 1rem 3rem;
-    transition: 0.3s ease-in-out;
-    background-color: var(--header-background, transparent);
-  }
+    margin-top: 1rem; /* This is fine for spacing */
+    position: sticky; /* Keeps the header at the top when scrolling */
+    top: 0; /* Adjust this if you want it to stick at the very top */
+    padding: 1rem; /* Header padding */
+    transition: 0.3s ease-in-out; /* Smooth transitions */
+    background-color: rgba(255, 0, 0, 0.5); /* Semi-transparent background */
+    border: 2px solid blue; /* Border for visibility */
+    width: 100%;
+}
 
   .tracks {
     margin: 0 2rem;
@@ -341,4 +361,3 @@
     display: flex;
     flex-direction: column;
   }
-
