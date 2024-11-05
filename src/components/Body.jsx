@@ -8,7 +8,7 @@ import "./Styles.css";
 export default function Body({ headerBackground }) {
   const [{ token, selectedPlaylistId, selectedPlaylist }, dispatch] = useStateProvider();
   const [scrolled, setScrolled] = useState(false);
-  const listRef = useRef(null); // Ref for the list container
+  const listRef = useRef(null);
 
   useEffect(() => {
     const getInitialPlaylist = async () => {
@@ -78,6 +78,38 @@ export default function Body({ headerBackground }) {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  const playTrack = async (id, name, artists, image, context_uri, track_number) => {
+    try {
+      const response = await axios.put(`https://api.spotify.com/v1/me/player/play`, {
+        context_uri,
+        offset: {
+          position: track_number - 1,
+        },
+        position_ms: 0,
+      }, {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 204) {
+        const currentlyPlaying = {
+          id,
+          name,
+          artists,
+          image,
+        };
+        dispatch({ type: reducerCases.SET_PLAYING, currentlyPlaying });
+        dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
+      } else {
+        dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
+      }
+    } catch (error) {
+      console.error("Error playing track:", error.response ? error.response.data : error.message);
+    }
+  }
+
   return (
     <div className="body-container">
       {selectedPlaylist && (
@@ -104,23 +136,23 @@ export default function Body({ headerBackground }) {
               <div className="col"><span><AiFillClockCircle /></span></div>
             </div>
             <div className="tracks" ref={listRef}>
-              {selectedPlaylist.tracks.map((track, index) => (
-                <div className="row" key={track.id}>
-                  <div className="col"><span>{index + 1}</span></div>
-                  <div className="col detail">
-                    <div className="image">
-                      <img src={track.image} alt={track.name} />
-                    </div>
-                    <div className="info">
-                      <span className="name">{track.name}</span>
-                      <span>{track.artists}</span>
-                    </div>
-                  </div>
-                  <div className="col"><span>{track.album}</span></div>
-                  <div className="col"><span>{msToMinutesAndSeconds(track.duration)}</span></div>
-                </div>
-              ))}
-            </div>
+  {selectedPlaylist.tracks.map((track, index) => (
+    <div className="row" key={`${track.id}-${index}`} onClick={() => playTrack(track.id, track.name, track.artists, track.image, track.context_uri, track.track_number)}>
+      <div className="col"><span>{index + 1}</span></div>
+      <div className="col detail">
+        <div className="image">
+          <img src={track.image} alt={track.name} />
+        </div>
+        <div className="info">
+          <span className="name">{track.name}</span>
+          <span>{track.artists}</span>
+        </div>
+      </div>
+      <div className="col"><span>{track.album}</span></div>
+      <div className="col"><span>{msToMinutesAndSeconds(track.duration)}</span></div>
+    </div>
+  ))}
+</div>
           </div>
         </>
       )}

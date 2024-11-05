@@ -1,14 +1,17 @@
 // Footer.jsx
 import React from 'react';
+import CurrentTrack from './CurrentTrack';
+import PlayerControls from './PlayerControls';
+import Volume from './Volume';
 import "./Styles.css";
 
-const Footer = () => {
+
+export default function Footer() {
     return (
         <div className="footer-container">
-            {/* Footer content goes here */}
-            <p>© 2024 Your Company Name</p>
+            <CurrentTrack />
+            <PlayerControls />
+            <Volume />
         </div>
     );
-};
-
-export default Footer;
+}

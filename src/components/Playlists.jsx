@@ -37,13 +37,15 @@ export default function Playlists() {
             getPlaylistData();
         }
     }, [token, dispatch]);
-
+    const changeCurrentPlaylist = (selectedPlaylistId) => {
+        dispatch({ type: reducerCases.SET_PLAYLISTS_ID, selectedPlaylistId})
+    }
     return (
         <div className="playlists-container">
             <ul>
                 {playlists.length > 0 ? (
                     playlists.map(({ name, id, imageUrl }) => (
-                        <li key={id}>
+                        <li key={id} onClick={() => changeCurrentPlaylist(id)}>
                             {imageUrl && <img src={imageUrl} alt={name} className="playlist-image" />}
                             <span>{name}</span>
                         </li>
