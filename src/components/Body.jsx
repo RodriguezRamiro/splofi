@@ -203,12 +203,6 @@ export default function Body({ headerBackground }) {
                     </div>
                     <div className="col"><span>{track.album}</span></div>
                     <div className="col"><span>{msToMinutesAndSeconds(track.duration)}</span></div>
-                    <div className="add-to-playlist" onClick={(e) => {
-                      e.stopPropagation();
-                      addTrackToPlaylist(track.context_uri);
-                    }}>
-                      Add to Playlist
-                    </div>
                   </div>
                 ))}
               </div>
