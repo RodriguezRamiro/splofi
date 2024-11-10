@@ -11,54 +11,28 @@ export const initialState = {
     playerState: false,
 };
 
-  const reducer = (state, action) => {
-    switch(action.type){
-      case reducerCases.SET_TOKEN : {
-          return {
-              ...state,
-              token: action.token,
-          };
-      }
-      case reducerCases.SET_PLAYLISTS : {
-          return {
-              ...state,
-              playlists: action.playlists,
-          };
-      }
-      case reducerCases.SET_USER : {
-          return {
-              ...state,
-              userInfo: action.userInfo,
-          };
-      }
-      case reducerCases.SET_PLAYLIST:{
-          return{
-              ...state,
-              selectedPlaylist:action.selectedPlaylist
+const updateState = (state, key, value) => ({ ...state, [key]: value });
 
-          };
-      }
-      case reducerCases.SET_PLAYING:{
-          return{
-              ...state,
-              currentlyPlaying: action.currentlyPlaying,
-          };
-      }
-      case reducerCases.SET_PLAYER_STATE:{
-          return{
-              ...state,
-              playerState: action.playerState,
-          };
-      }
-      case reducerCases.SET_PLAYLISTS_ID:{
-          return{
-              ...state,
-              selectedPlaylistId: action.selectedPlaylistId,
-          };
-      }
-      default:
-        return state;
-    }
-  };
+const reducer = (state, action) => {
+  switch (action.type) {
+    case reducerCases.SET_TOKEN:
+      return updateState(state, 'token', action.token);
+    case reducerCases.SET_PLAYLISTS:
+      return updateState(state, 'playlists', action.playlists);
+    case reducerCases.SET_USER:
+      return updateState(state, 'userInfo', action.userInfo);
+    case reducerCases.SET_PLAYLIST:
+      return updateState(state, 'selectedPlaylist', action.selectedPlaylist);
+    case reducerCases.SET_PLAYING:
+      return updateState(state, 'currentlyPlaying', action.currentlyPlaying);
+    case reducerCases.SET_PLAYER_STATE:
+      return updateState(state, 'playerState', action.playerState);
+    case reducerCases.SET_PLAYLISTS_ID:
+      return updateState(state, 'selectedPlaylistId', action.selectedPlaylistId);
+    default:
+      console.error(`Unknown action type: ${action.type}`);
+      return state;
+  }
+};
 
   export default reducer;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStateProvider } from '../utils/StateProvider';
 import axios from 'axios';
 import { reducerCases } from '../utils/Constants';
@@ -6,10 +6,14 @@ import "./Styles.css";
 
 export default function CurrentTrack() {
     const [{ token, currentlyPlaying }, dispatch] = useStateProvider();
+    const [loading, setLoading] = useState(true);  // New state for loading
+    const [error, setError] = useState(null); // New state to track errors
 
     useEffect(() => {
         const getCurrentTrack = async () => {
             if (!token) return; // Prevent API call if token is not available
+
+            setLoading(true); // Start loading indicator
 
             try {
                 const response = await axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
@@ -31,20 +35,33 @@ export default function CurrentTrack() {
                     dispatch({ type: reducerCases.SET_PLAYING, currentlyPlaying: trackData });
                 } else {
                     // Handle the case where no track is currently playing
-                    console.log('No track is currently playing.');
                     dispatch({ type: reducerCases.SET_PLAYING, currentlyPlaying: null });
                 }
             } catch (error) {
                 console.error("Error fetching current track:", error);
-                // Handle specific error cases (e.g., 404 for no active playback)
-                if (error.response && error.response.status === 404) {
-                    console.log("No active playback found.");
-                }
+                setError(error.message || "An error occurred while fetching the current track");
+            } finally {
+                setLoading(false); // Stop loading indicator
             }
         };
 
         getCurrentTrack();
-    }, [token, dispatch]);
+    }, [token, dispatch]); // Only refetch if token or dispatch changes
+
+    // Display loading state with a spinner
+    if (loading) {
+        return (
+            <div className="current-track-container">
+                <div className="loading-spinner"></div> {/* Spinner component */}
+                <p>Loading...</p>
+            </div>
+        );
+    }
+
+    // Display error message
+    if (error) {
+        return <div className="current-track-container">{error}</div>;
+    }
 
     return (
         <div className='current-track-container'>

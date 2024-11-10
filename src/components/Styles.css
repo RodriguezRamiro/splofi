@@ -149,9 +149,12 @@
     position: sticky;
     top: 0;
     transition: 0.3s ease-in-out;
+    transition: background-color 0.3s ease;
+
 
 
   }
+  
 
   .search-bar {
     background-color: white;
@@ -326,6 +329,7 @@
 .header-row.scrolled {
   background-color: #000000dc;
   transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease;
 }
 
 

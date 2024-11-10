@@ -7,7 +7,8 @@ export default function Volume() {
     const [{ token }] = useStateProvider();
 
     const setVolume = async (e) => {
-        await axios.put(`https://api.spotify.com/v1/me/player/volume`, {}, {
+        try {
+        await axios.put(`https://api.spotify.com/v1/me/player/volume`,{}, {
             params: {
                 volume_percent: parseInt(e.target.value),
             },
@@ -16,6 +17,9 @@ export default function Volume() {
                 "Content-Type": "application/json",
             },
         });
+    } catch (error) {
+        console.error("Failed to set volume", error);
+      }
     };
 
     return (
