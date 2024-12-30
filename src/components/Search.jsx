@@ -7,6 +7,7 @@ export default function Search() {
   const [{ token }, dispatch] = useStateProvider();
   const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [message, setMessage] = useState(''); // State to display the message
 
   // Function to search Spotify's catalog
   const searchSpotifyCatalog = async (query) => {
@@ -25,7 +26,7 @@ export default function Search() {
         }
       );
 
-      // Example of setting albums or tracks based on response
+      // Setting albums or tracks based on response
       const albums = response.data.albums?.items || [];
       setSearchResults(albums);
       console.log('Search Results:', albums); // Debugging/logging
@@ -38,6 +39,26 @@ export default function Search() {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     searchSpotifyCatalog(searchQuery);
+  };
+
+  // Handle song click
+  const handleSongClick = (track) => {
+    // Dispatch the selected track as currently playing
+    dispatch({
+      type: 'SET_PLAYING',
+      currentlyPlaying: {
+        id: track.id,
+        name: track.name,
+        artists: track.artists,
+        image: track.images[0]?.url,
+      },
+    });
+
+    // Set the message
+    setMessage(`Now playing: ${track.name}`);
+
+    // Clear the message after a few seconds
+    setTimeout(() => setMessage(''), 3000);
   };
 
   return (
@@ -54,10 +75,19 @@ export default function Search() {
           Search
         </button>
       </form>
+      {message && <div className="message">{message}</div>}
       <div className="search-results">
         {searchResults.map((result) => (
-          <div key={result.id} className="search-result-item">
-            <img src={result.images[0]?.url} alt={result.name} className="result-image" />
+          <div
+            key={result.id}
+            className="search-result-item"
+            onClick={() => handleSongClick(result)}
+          >
+            <img
+              src={result.images[0]?.url}
+              alt={result.name}
+              className="result-image"
+            />
             <span>{result.name}</span>
           </div>
         ))}

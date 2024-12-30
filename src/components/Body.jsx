@@ -3,16 +3,15 @@ import { AiFillClockCircle } from 'react-icons/ai';
 import { useStateProvider } from '../utils/StateProvider';
 import axios from 'axios';
 import { reducerCases } from '../utils/Constants';
-import "./Styles.css";
+import './Styles.css';
 
 export default function Body({ headerBackground }) {
   const [{ token, selectedPlaylistId, selectedPlaylist }, dispatch] = useStateProvider();
   const [scrolled, setScrolled] = useState(false);
-  const [loading, setLoading] = useState(true);  // Loading state for playlist
+  const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const listRef = useRef(null);
-  const trackListRef = useRef(null);
 
   useEffect(() => {
     const getInitialPlaylist = async () => {
@@ -22,7 +21,7 @@ export default function Body({ headerBackground }) {
           `https://api.spotify.com/v1/playlists/${selectedPlaylistId}`,
           {
             headers: {
-              Authorization: 'Bearer ' + token,
+              Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json',
             },
           }
@@ -47,7 +46,7 @@ export default function Body({ headerBackground }) {
         };
         dispatch({ type: reducerCases.SET_PLAYLIST, selectedPlaylist });
       } catch (error) {
-        console.error("Error fetching playlist:", error);
+        console.error('Error fetching playlist:', error);
       } finally {
         setLoading(false);
       }
@@ -64,7 +63,7 @@ export default function Body({ headerBackground }) {
     };
 
     if (listElement) {
-      handleScroll(); // Initial state check
+      handleScroll();
       listElement.addEventListener('scroll', handleScroll);
     }
 
@@ -82,11 +81,9 @@ export default function Body({ headerBackground }) {
   };
 
   const playTrack = async (id, name, artists, image, context_uri, track_number) => {
-    // Check if token exists
     if (!token) {
-      console.error("No token provided");
-      setErrorMessage("Authentication token is missing.");
-      return; // Prevent further execution if token is missing
+      setErrorMessage('Authentication token is missing.');
+      return;
     }
 
     try {
@@ -99,8 +96,8 @@ export default function Body({ headerBackground }) {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Pass the token here
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         }
       );
@@ -118,39 +115,11 @@ export default function Body({ headerBackground }) {
         dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
       }
     } catch (error) {
-      // Handle errors, particularly the Premium requirement
-      if (error.response && error.response.data.reason === "PREMIUM_REQUIRED") {
-        setErrorMessage("Premium account required to play this track.");
-        console.error("Premium account required to play this track.");
+      if (error.response && error.response.data.reason === 'PREMIUM_REQUIRED') {
+        setErrorMessage('Premium account required to play this track.');
       } else {
         setErrorMessage(error.response ? error.response.data.message : error.message);
-        console.error("Error playing track:", error.response ? error.response.data : error.message);
       }
-    }
-  };
-
-  const addTrackToPlaylist = async (trackUri) => {
-    try {
-      const response = await axios.post(
-        `https://api.spotify.com/v1/playlists/${selectedPlaylistId}/tracks`,
-        {
-          uris: [trackUri],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.status === 201) {
-        setSuccessMessage("Track added to playlist!");
-        console.log("Track successfully added to playlist");
-      }
-    } catch (error) {
-      setErrorMessage("Error adding track to playlist.");
-      console.error("Error adding track to playlist:", error.response ? error.response.data : error.message);
     }
   };
 
@@ -173,16 +142,16 @@ export default function Body({ headerBackground }) {
             </div>
             <div className="list" ref={listRef}>
               <div
-                className={`header-row ${scrolled ? "scrolled" : ""}`}
+                className={`header-row ${scrolled ? 'scrolled' : ''}`}
                 style={{
-                  backgroundColor: scrolled ? "#000000dc" : "transparent",
+                  backgroundColor: scrolled ? '#000000dc' : 'transparent',
                 }}
               >
                 <div className="col"><span>Title</span></div>
                 <div className="col"><span>Album</span></div>
                 <div className="col"><span><AiFillClockCircle /></span></div>
               </div>
-              <div className="tracks" ref={trackListRef}>
+              <div className="tracks">
                 {selectedPlaylist.tracks.map((track, index) => (
                   <div
                     className="row"

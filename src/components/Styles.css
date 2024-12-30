@@ -143,7 +143,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 2rem;
     height: 15vh;
     width: 1650%;
     position: sticky;
@@ -176,6 +176,84 @@
   .search-bar input:focus {
     outline: none;
   }
+/*########################################*/
+.search-results {
+  position: absolute;
+  top: 130px; /* Adjust based on search bar's position */
+  left: 3%; /* Adjust for alignment under the search bar */
+  width: 23%; /* Matches the width of the search bar */
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-button {
+  padding: 0.5rem 1.5rem;
+  background-color: #1db954;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button {
+  padding: 0.6rem 1.8rem;
+  background-color: #1db954;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-button:hover {
+  background-color: #17a34a;
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.search-button:active {
+  background-color: #138c3d;
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.search-result-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.search-result-item:hover {
+  background-color: #f9f9f9;
+}
+
+.search-result-text {
+  font-size: 0.9rem;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Truncates long text with ellipsis */
+}
+
 
   .avatar {
     background-color: black;
@@ -340,7 +418,7 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 5rem;
-  padding-right: 0; 
+  padding-right: 0;
   scrollbar-width: thin; /* For Firefox */
   scrollbar-color: #555 #1a1a1a; /* Thumb and track color for Firefox */
 }
