@@ -22,7 +22,7 @@ export default function SearchComponent() {
   // Handle the click on an option in the search dropdown
   const handleSelectOption = (result) => {
     setSelectedResult(result); // Set the selected result
-    setSearchQuery(result.name); // Optionally update the search input with the selected option
+    setSearchQuery(result.name); // update the search input with the selected option
     setSearchResults([]); // Clear results after selection
   };
 
@@ -33,11 +33,11 @@ export default function SearchComponent() {
     try {
       const response = await fetch(`https://api.spotify.com/v1/search?q=${searchQuery}&type=album`, {
         headers: {
-          Authorization: `Bearer YOUR_ACCESS_TOKEN`, // Replace with actual token
+          Authorization: `Bearer ${token}`,
         },
       });
       const data = await response.json();
-      setSearchResults(data.albums.items); // Assuming the data returned is albums
+      setSearchResults(data.albums.items);
     } catch (error) {
       console.error('Error fetching search results:', error);
     }

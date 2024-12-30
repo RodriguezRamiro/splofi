@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useStateProvider } from "../utils/StateProvider";
-import { reducerCases } from "../utils/Constants";  // Ensure you have this
+import { reducerCases } from "../utils/Constants";
 import "./Styles.css";
 
 export default function Login() {
@@ -35,7 +35,7 @@ export default function Login() {
   // Redirect to Spotify login page
   const handleClick = () => {
     const clientId = "305e0c3ef9ef48dc8504556c83d114ca";
-    const redirectUrl = "http://localhost:3000/"; 
+    const redirectUrl = "http://localhost:3000/";
     const apiUrl = "https://accounts.spotify.com/authorize";
     const scope = [
       "user-read-email",
