@@ -7,6 +7,12 @@ import { reducerCases } from '../utils/Constants';
 import axios from 'axios';
 import "./Styles.css";
 
+
+/*
+Active Spotify Device: Playback requires an active Spotify device (e.g., Spotify app running on a phone or computer).
+Premium Account: The user must have a Spotify Premium account for playback to work.
+*/
+
 export default function PlayerControls() {
     const [{ token, playerState, selectedPlaylist }, dispatch] = useStateProvider();
     const [isPremium, setIsPremium] = useState(false);
